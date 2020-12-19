@@ -21,17 +21,20 @@ public class Tache {
     @NotNull
     private boolean important;
 
+
+
     @ManyToOne
     private ListeTaches liste;
 
     public Tache(){}
 
-    public Tache(String description, Date dateEcheance, Date dateRappel, boolean etat, boolean important) {
+    public Tache(String description, Date dateEcheance, Date dateRappel, boolean etat, boolean important, ListeTaches liste) {
         this.description = description;
         this.dateEcheance = dateEcheance;
         this.dateRappel = dateRappel;
         this.etat = etat;
         this.important = important;
+        this.liste = liste;
     }
 
     public String getDescription() {
@@ -76,6 +79,15 @@ public class Tache {
 
     public Tache setImportant(boolean important) {
         this.important = important;
+        return this;
+    }
+
+    public ListeTaches getListe() {
+        return liste;
+    }
+
+    public Tache setListe(ListeTaches liste) {
+        this.liste = liste;
         return this;
     }
 

@@ -21,8 +21,7 @@ public class UtilisateurController {
     @GetMapping("/utilisateurs")
     public ResponseEntity<List<Utilisateur>> getAllUtilisateurs(){
         try{
-            List<Utilisateur> utilisateurs = new ArrayList<>();
-            utilisateurs.addAll(utilisateurRepository.findAll());
+            List<Utilisateur> utilisateurs = new ArrayList<>(utilisateurRepository.findAll());
 
             if(utilisateurs.isEmpty())
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -77,7 +76,7 @@ public class UtilisateurController {
     }
 
     @DeleteMapping("/utilisateurs/{utilisateurID}")
-    public ResponseEntity<Utilisateur> deleteUtilisateur(@PathVariable("utilisateurID") int utilisateurID)
+    public ResponseEntity<Utilisateur> deleteUtilisateur(@PathVariable("utilisateurD") int utilisateurID)
     {
         try{
             utilisateurRepository.deleteById(utilisateurID);
