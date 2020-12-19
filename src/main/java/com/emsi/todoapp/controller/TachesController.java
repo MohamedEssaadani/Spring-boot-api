@@ -25,6 +25,7 @@ public class TachesController {
     public ResponseEntity<Tache> createTache(@RequestBody Tache tache,@PathVariable("listeID") Integer listeID){
         try{
             Optional<ListeTaches> liste = listeTachesRepository.findById(listeID);
+
             if(liste.isPresent())
             {
                 tache.setListe(liste.get());
@@ -41,6 +42,31 @@ public class TachesController {
 
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }catch (Exception e){
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PutMapping("/listes/{listeID}/taches/{tacheID}")
+    public ResponseEntity<Tache> updateTache(@RequestBody Tache tache,
+                                             @PathVariable("tacheID") Integer tacheID,
+                                             @PathVariable("listeID") Integer listeID){
+        try{
+            Optional<ListeTaches> liste = listeTachesRepository.findById(listeID);
+            Optional<Tache> _tache = tacheRepository.findById(tacheID);
+            if(liste.isPresent() && _tache.isPresent()){
+                _tache.get()
+                        .setDescription(tache.getDescription())
+                        .setDateEcheance(tache.getDateEcheance())
+                        .setDateRappel(tache.getDateRappel())
+                        .setImportant(tache.isImportant())
+                        .setEtat(tache.isEtat())
+                        .setListe(tache.getListe());
+
+                return new ResponseEntity<>(tacheRepository.save(_tache.get()), HttpStatus.OK);
+            }
+
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }catch(Exception e){
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
