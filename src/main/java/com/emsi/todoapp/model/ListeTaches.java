@@ -1,5 +1,6 @@
 package com.emsi.todoapp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
@@ -17,6 +18,7 @@ public class ListeTaches {
     private String arrierePlan;
 
     @ManyToOne
+    @JsonIgnore
     private Utilisateur utilisateur;
 
     public ListeTaches(){}

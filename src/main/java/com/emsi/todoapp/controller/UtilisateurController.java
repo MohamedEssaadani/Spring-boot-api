@@ -86,4 +86,14 @@ public class UtilisateurController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @PostMapping("/utilisateurs")
+    public ResponseEntity<Utilisateur> login(@RequestBody String adresseEmail,@RequestBody  String motDePasse)
+    {
+        Optional<Utilisateur> utilisateur= utilisateurRepository.findByAdresseMailAndMotDePasse(adresseEmail, motDePasse);
+        if(utilisateur.isPresent())
+            return new ResponseEntity<>(utilisateur.get(), HttpStatus.OK);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

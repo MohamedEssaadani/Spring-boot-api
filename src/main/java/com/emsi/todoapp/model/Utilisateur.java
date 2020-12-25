@@ -1,5 +1,7 @@
 package com.emsi.todoapp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sun.istack.NotNull;
 
 import javax.persistence.Entity;
@@ -17,6 +19,7 @@ public class Utilisateur {
     @NotNull
     private  String adresseEmail;
     @NotNull
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private  String motDePasse;
 
     public Utilisateur(){}
